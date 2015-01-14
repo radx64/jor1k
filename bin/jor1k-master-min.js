@@ -1547,6 +1547,8 @@ function jor1kGUI(parameters)
    }.bind(this);
    }
 
+
+
    this.IgnoreKeys = function() {
       return (
           (this.lastMouseDownTarget != TERMINAL) &&
@@ -1603,11 +1605,17 @@ function jor1kGUI(parameters)
         message.Register("ethmac", this.ethernet.SendFrame.bind(this.ethernet));
     }
 
+    this.GetMemoryAt = function(address) {
+    message.Send("getMemory", address)   
+   }.bind(this);
+
 
     message.Register("Stop", function(){message.Debug("Received stop signal"); this.stop = true}.bind(this));
     message.Register("GetIPS", this.ShowIPS.bind(this));
     message.Register("execute", this.Execute.bind(this));
     message.Register("Debug", function(d){message.Debug(d);}.bind(this));
+
+    message.Register("MemoryInd", function(d){message.Debug("Received memory from worker "+d)}.bind(this));
 
     this.Reset();
 

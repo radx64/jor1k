@@ -9874,6 +9874,50 @@ function System() {
             this.ips=0;
         }.bind(this)
     );
+
+    message.Register("getMemory", function(d){this.ReadMemoryAtAndSend(d);}.bind(this));
+
+    message.Register("getR0", function(d){this.ReadRegisterAndSend(0);}.bind(this));
+    message.Register("getR1", function(d){this.ReadRegisterAndSend(1);}.bind(this));
+    message.Register("getR2", function(d){this.ReadRegisterAndSend(2);}.bind(this));
+    message.Register("getR3", function(d){this.ReadRegisterAndSend(3);}.bind(this));
+    message.Register("getR4", function(d){this.ReadRegisterAndSend(4);}.bind(this));
+    message.Register("getR5", function(d){this.ReadRegisterAndSend(5);}.bind(this));
+    message.Register("getR6", function(d){this.ReadRegisterAndSend(6);}.bind(this));
+    message.Register("getR7", function(d){this.ReadRegisterAndSend(7);}.bind(this));
+    message.Register("getR8", function(d){this.ReadRegisterAndSend(8);}.bind(this));
+    message.Register("getR9", function(d){this.ReadRegisterAndSend(9);}.bind(this));
+    message.Register("getR10", function(d){this.ReadRegisterAndSend(10);}.bind(this));
+    message.Register("getR11", function(d){this.ReadRegisterAndSend(11);}.bind(this));
+    message.Register("getR12", function(d){this.ReadRegisterAndSend(12);}.bind(this));
+    message.Register("getR13", function(d){this.ReadRegisterAndSend(13);}.bind(this));
+    message.Register("getR14", function(d){this.ReadRegisterAndSend(14);}.bind(this));
+    message.Register("getR15", function(d){this.ReadRegisterAndSend(15);}.bind(this));
+    message.Register("getR16", function(d){this.ReadRegisterAndSend(16);}.bind(this));
+    message.Register("getR17", function(d){this.ReadRegisterAndSend(17);}.bind(this));
+    message.Register("getR18", function(d){this.ReadRegisterAndSend(18);}.bind(this));
+    message.Register("getR19", function(d){this.ReadRegisterAndSend(19);}.bind(this));
+    message.Register("getR20", function(d){this.ReadRegisterAndSend(20);}.bind(this));
+    message.Register("getR21", function(d){this.ReadRegisterAndSend(21);}.bind(this));
+    message.Register("getR22", function(d){this.ReadRegisterAndSend(22);}.bind(this));
+    message.Register("getR23", function(d){this.ReadRegisterAndSend(23);}.bind(this));
+    message.Register("getR24", function(d){this.ReadRegisterAndSend(24);}.bind(this));
+    message.Register("getR25", function(d){this.ReadRegisterAndSend(25);}.bind(this));
+    message.Register("getR26", function(d){this.ReadRegisterAndSend(26);}.bind(this));
+    message.Register("getR27", function(d){this.ReadRegisterAndSend(27);}.bind(this));
+    message.Register("getR28", function(d){this.ReadRegisterAndSend(28);}.bind(this));
+    message.Register("getR29", function(d){this.ReadRegisterAndSend(29);}.bind(this));
+    message.Register("getR30", function(d){this.ReadRegisterAndSend(30);}.bind(this));
+    message.Register("getR31", function(d){this.ReadRegisterAndSend(31);}.bind(this));
+
+}
+
+System.prototype.ReadMemoryAtAndSend = function(address){
+    message.Send("MemoryInd", this.ram.ReadMemory32(address));
+}
+
+System.prototype.ReadMemoryAtAndSend = function(registerNumber){
+    message.Send("getR"+registerNumber, registerNumber);
 }
 
 System.prototype.CreateCPU = function(cpuname) {
@@ -9893,7 +9937,6 @@ System.prototype.CreateCPU = function(cpuname) {
     }
     this.currentcpuname = cpuname;
 };
-
 
 System.prototype.ChangeCPU = function(cpuname) {
 
@@ -10183,6 +10226,9 @@ System.prototype.PatchKernel = function(length)
 };
 
 System.prototype.OnKernelLoaded = function(buffer) {
+    this.SendStringToTerminal("                                                                       \r\n");
+    this.SendStringToTerminal("       Source modified by Radzio!. Direct memory access enabled!       \r\n");
+    this.SendStringToTerminal("                                                                       \r\n");
     this.SendStringToTerminal("Decompressing kernel...\r\n");
     var buffer8 = new Uint8Array(buffer);
     var length = 0;
@@ -10583,5 +10629,8 @@ module.exports.LoadXMLResource = LoadXMLResource;
 
 var System = require('./system.js');
 var sys = new System();
+
+module.exports.sys = sys
+module.exports.System = System
 
 },{"./system.js":25}]},{},[28]);
