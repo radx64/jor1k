@@ -1401,16 +1401,16 @@ module.exports = Terminal;
 
 var worker;
 
-
-function Send(command, data) {
+function Send(command, data, data2) {
+    data2 = typeof data2 !== 'undefined' ? data2 : 'none';
     worker.postMessage(
     {
         "command" : command,
-        "data" : data
+        "data" : data,
+        "data2" : data2
     }
     );
 }
-
 function Debug(message) {
     console.log(message);
 }
@@ -1430,7 +1430,7 @@ function Register(message, OnReceive) {
 // this is a global object of the worker
 function OnMessage(e) {
     if (typeof messagemap[e.data.command] == 'function') {
-            messagemap[e.data.command](e.data.data);
+            messagemap[e.data.command](e.data.data, e.data.data2);
             return;
     }
 }
@@ -1605,8 +1605,16 @@ function jor1kGUI(parameters)
         message.Register("ethmac", this.ethernet.SendFrame.bind(this.ethernet));
     }
 
-    this.GetMemoryAt = function(address) {
-    message.Send("getMemory", address)   
+    this.GetMemoryAt = function(address)
+    {
+        message.Debug("Master has send getMemory");
+        message.Send("getMemory", address);
+   }.bind(this);
+
+    this.SetMemoryAt = function(address, value)
+    {
+        message.Debug("Master has send setMemory");
+        message.Send("setMemory", address, value);
    }.bind(this);
 
 
@@ -1615,7 +1623,15 @@ function jor1kGUI(parameters)
     message.Register("execute", this.Execute.bind(this));
     message.Register("Debug", function(d){message.Debug(d);}.bind(this));
 
-    message.Register("MemoryInd", function(d){message.Debug("Received memory from worker "+d)}.bind(this));
+    message.Register("MemoryInd", function(d){
+        message.Debug("Received memory from worker "+d);
+        var value = Number(d)
+        document.getElementById("Value").value = Number(value).toString(16);
+
+    }.bind(this));
+
+
+
 
     this.Reset();
 

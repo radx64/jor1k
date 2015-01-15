@@ -19,120 +19,27 @@
     </div>
 
     <div class="container-fluid">
-        <div class="col-xs-6">
+        <div class="col-md-9">
             <canvas id="tty" class="screen" width="640" height="384">
                 Terminal uses canvas
             </canvas>
+            <div class="form-inline">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                  Addr 0x
+                  <br>
+                  <br>
+                  Value 0x
+                  </div>
+                  <input type="text" class="form-control" id="Addres" placeholder="0">
+                  <input type="text" class="form-control" id="Value" placeholder="0">
+                </div>
+              </div>
+              <button class="btn btn-success"onclick="jor1kgui.GetMemoryAt(getElementById('Addres').value)">Read </button>
+              <button class="btn btn-danger" onclick="jor1kgui.SetMemoryAt(getElementById('Addres').value, getElementById('Value').value)">Write</button>
+            </div>
         </div>
-
-        <div class="col-xs-6">
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">R0</div>
-                  <input type="text" class="form-control" id="R0" placeholder="0">
-                </div>
-              </div>
-              <button class="btn btn-success">Read</button>
-              <button class="btn btn-danger">Write</button>
-            </form>
-        </div><br><br>
-        <div class="col-xs-6">
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">R1</div>
-                  <input type="text" class="form-control" id="R1" placeholder="0">
-                </div>
-              </div>
-              <button class="btn btn-success">Read</button>
-              <button class="btn btn-danger">Write</button>
-            </form>
-        </div><br><br>
-        <div class="col-xs-6">
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">R2</div>
-                  <input type="text" class="form-control" id="R2" placeholder="0">
-                </div>
-              </div>
-              <button class="btn btn-success">Read</button>
-              <button class="btn btn-danger">Write</button>
-            </form>
-        </div><br><br>
-        <div class="col-xs-6">
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">R3</div>
-                  <input type="text" class="form-control" id="R3" placeholder="0">
-                </div>
-              </div>
-              <button class="btn btn-success">Read</button>
-              <button class="btn btn-danger">Write</button>
-            </form>
-        </div><br><br>
-        <div class="col-xs-6">
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">R4</div>
-                  <input type="text" class="form-control" id="R4" placeholder="0">
-                </div>
-              </div>
-              <button class="btn btn-success">Read</button>
-              <button class="btn btn-danger">Write</button>
-            </form>
-        </div><br><br>
-        <div class="col-xs-6">
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">R5</div>
-                  <input type="text" class="form-control" id="R5" placeholder="0">
-                </div>
-              </div>
-              <button class="btn btn-success">Read</button>
-              <button class="btn btn-danger">Write</button>
-            </form>
-        </div><br><br>
-        <div class="col-xs-6">
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">R6</div>
-                  <input type="text" class="form-control" id="R6" placeholder="0">
-                </div>
-              </div>
-              <button class="btn btn-success">Read</button>
-              <button class="btn btn-danger">Write</button>
-            </form>
-        </div><br><br>
-        <div class="col-xs-6">
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">R7</div>
-                  <input type="text" class="form-control" id="R7" placeholder="0">
-                </div>
-              </div>
-              <button class="btn btn-success">Read</button>
-              <button class="btn btn-danger">Write</button>
-            </form>
-        </div><br><br>
-        <div class="col-xs-6">
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">R8</div>
-                  <input type="text" class="form-control" id="R8" placeholder="0">
-                </div>
-              </div>
-              <button class="btn btn-success">Read</button>
-              <button class="btn btn-danger">Write</button>
-            </form>
-        </div><br><br>
     </div>
 <!--
 
