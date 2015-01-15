@@ -19,10 +19,20 @@
     </div>
 
     <div class="container-fluid">
-        <div class="col-md-9">
+          <div class="form-inline">
             <canvas id="tty" class="screen" width="640" height="384">
                 Terminal uses canvas
             </canvas>
+            <br>
+              <div class="btn btn-default">
+                <label>
+                  <img src="images/upload.png" width="20px" height="20px" title="Upload to home folder" />
+                  <input type="file" id="files" style="visibility:hidden;width:0; height:0;" name="files[]" onchange='OnUploadFiles(this.files)' multiple />Upload file to home folder
+                </label>
+            </div>   
+          </div>
+            <br>
+            RAM:
             <div class="form-inline">
               <div class="form-group">
                 <div class="input-group">
@@ -35,11 +45,35 @@
                   <input type="text" class="form-control" id="Addres" placeholder="0">
                   <input type="text" class="form-control" id="Value" placeholder="0">
                 </div>
-              </div>
               <button class="btn btn-success"onclick="jor1kgui.GetMemoryAt(getElementById('Addres').value)">Read </button>
               <button class="btn btn-danger" onclick="jor1kgui.SetMemoryAt(getElementById('Addres').value, getElementById('Value').value)">Write</button>
+              </div>
             </div>
-        </div>
+            REGISTERS:
+            <div class="form-inline">
+              <div class="form-group">
+                <div class="input-group">
+                  <select class="form-control" id="registers">
+                    <option value="0" onclick="alert(this.value)">R0</option>
+                    <option value="4">R1</option>
+                    <option value="8">R2</option>
+                    <option value="C">R3</option>
+                    <option value="10">R4</option>
+                    <option value="14">R5</option>  
+                    <option value="18">R6</option>  
+                    <option value="1C">R7</option>                    
+                  </select>            
+                  <div class="input-group-addon">
+                  Value 0x
+                  </div>
+                  <input type="text" class="form-control" id="HeapValue" placeholder="0">
+                </div>
+              <button class="btn btn-success"onclick="jor1kgui.GetMemoryAt(getElementById('Addres').value)">Read </button>
+              <button class="btn btn-danger" onclick="jor1kgui.SetMemoryAt(getElementById('Addres').value, getElementById('Value').value)">Write</button>
+              <button class="btn btn-default" onclick="alert(getElementById('registers').value)">Test</button>
+
+              </div>
+            </div>
     </div>
 <!--
 
