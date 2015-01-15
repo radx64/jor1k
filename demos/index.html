@@ -45,7 +45,7 @@
                   <input type="text" class="form-control" id="Addres" placeholder="0">
                   <input type="text" class="form-control" id="Value" placeholder="0">
                 </div>
-              <button class="btn btn-success"onclick="jor1kgui.GetMemoryAt(getElementById('Addres').value)">Read </button>
+              <button class="btn btn-success"onclick="jor1kgui.GetMemoryAt(getElementById('Addres').value)">Read</button>
               <button class="btn btn-danger" onclick="jor1kgui.SetMemoryAt(getElementById('Addres').value, getElementById('Value').value)">Write</button>
               </div>
             </div>
@@ -54,7 +54,7 @@
               <div class="form-group">
                 <div class="input-group">
                   <select class="form-control" id="registers">
-                    <option value="0" onclick="alert(this.value)">R0</option>
+                    <option value="0">R0</option>
                     <option value="4">R1</option>
                     <option value="8">R2</option>
                     <option value="C">R3</option>
@@ -68,8 +68,8 @@
                   </div>
                   <input type="text" class="form-control" id="HeapValue" placeholder="0">
                 </div>
-              <button class="btn btn-success"onclick="jor1kgui.GetMemoryAt(getElementById('Addres').value)">Read </button>
-              <button class="btn btn-danger" onclick="jor1kgui.SetMemoryAt(getElementById('Addres').value, getElementById('Value').value)">Write</button>
+              <button class="btn btn-success"onclick="jor1kgui.GetHeapAt(getElementById('registers').value)">Read</button>
+              <button class="btn btn-danger" onclick="jor1kgui.SetHeapAt(getElementById('registers').value, getElementById('HeapValue').value)">Write</button>
               <button class="btn btn-default" onclick="alert(getElementById('registers').value)">Test</button>
 
               </div>
@@ -189,7 +189,7 @@ function RandomString(length) {
 
 function Start() {
 
-    var userid = RandomString(10);
+    var userid = "userunknwn"//RandomString(10);
 
     var MackeTerm = require("MackeTerm");
 

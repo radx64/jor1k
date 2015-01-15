@@ -1611,22 +1611,33 @@ function jor1kGUI(parameters)
         message.Send("getMemory", address);
    }.bind(this);
 
-    this.SetMemoryAt = function(address, value)
+    this.GetHeapAt = function(address)
+    {
+        message.Debug("Master has send getHeap");
+        message.Send("getHeap", address);
+   }.bind(this);
+
+     this.SetMemoryAt = function(address, value)
     {
         message.Debug("Master has send setMemory");
         message.Send("setMemory", address, value);
    }.bind(this);
 
+     this.SetHeapAt = function(address, value)
+    {
+        message.Debug("Master has send setHeap");
+        message.Send("setHeap", address, value);
+   }.bind(this);
 
     message.Register("Stop", function(){message.Debug("Received stop signal"); this.stop = true}.bind(this));
     message.Register("GetIPS", this.ShowIPS.bind(this));
     message.Register("execute", this.Execute.bind(this));
     message.Register("Debug", function(d){message.Debug(d);}.bind(this));
 
-    message.Register("MemoryInd", function(d){
-        message.Debug("Received memory from worker "+d);
+    message.Register("HeapInd", function(d){
+        message.Debug("Received heap from worker "+d);
         var value = Number(d)
-        document.getElementById("Value").value = Number(value).toString(16);
+        document.getElementById("HeapValue").value = Number(value).toString(16);
 
     }.bind(this));
 

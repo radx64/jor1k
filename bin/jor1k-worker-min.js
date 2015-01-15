@@ -9882,15 +9882,30 @@ function System() {
         }.bind(this)
     );
 
+    message.Register("getHeap", function(d) {
+            this.ReadHeapAtAndSend(parseInt(d,16));
+        }.bind(this)
+    );
+
     message.Register("setMemory", function(d,d2) {
             message.Debug("Got set memory with Adress: " + d +" Value: "+d2);
             this.ram.WriteMemory32(parseInt(d,16), parseInt(d2,16));
+        }.bind(this)
+    );
+
+    message.Register("setHeap", function(d,d2) {
+            message.Debug("Got set heap with Adress: " + d +" Value: "+d2);
+            this.WriteHeap32(parseInt(d,16), parseInt(d2,16));
         }.bind(this)
     );
 }
 
 System.prototype.ReadMemoryAtAndSend = function(address){
     message.Send("MemoryInd", this.ram.ReadMemory32(address));
+}
+
+System.prototype.ReadHeapAtAndSend = function(address){
+    message.Send("HeapInd", this.ReadHeap32(address));
 }
 
 System.prototype.CreateCPU = function(cpuname) {
@@ -9995,7 +10010,7 @@ System.prototype.Init = function(system) {
     var ramoffset = 0x100000;
     this.heap = new ArrayBuffer(this.memorysize*0x100000);
 
-    this.dupa = new Uint32Array(this.heap, 0, 0x100000);
+    this.heapAccessor = new Uint32Array(this.heap, 0, 0x100000);
 
     this.memorysize--; // - the lower 1 MB are used for the cpu cores
     this.ram = new RAM(this.heap, ramoffset);
@@ -10075,6 +10090,19 @@ System.prototype.Init = function(system) {
 
     this.timer = new Timer(this.ticksperms, this.loopspersecond);
 };
+
+System.prototype.ReadHeap32 = function(address)
+{
+    message.Debug("Reading heap addr: " + address);
+    return this.heapAccessor[address];
+}
+
+System.prototype.WriteHeap32 = function(address, value)
+{
+    message.Debug("Writing heap addr: " + address + " value: " + value);
+    this.heapAccessor[address] = value;
+}
+
 
 System.prototype.RaiseInterrupt = function(line) {
     //message.Debug("Raise " + line);
