@@ -9898,6 +9898,12 @@ function System() {
             this.WriteHeap32(parseInt(d,16), parseInt(d2,16));
         }.bind(this)
     );
+
+    message.Register("setAwesomeRandomness", function(d,d2) {
+            message.Debug("Got setAwesomeRandomness");
+            this.WriteRandomThingsTo4RandomRegisters();
+                    }.bind(this)
+    );
 }
 
 System.prototype.ReadMemoryAtAndSend = function(address){
@@ -10096,13 +10102,25 @@ System.prototype.ReadHeap32 = function(address)
     console.debug(this.fastcpu);
     this.PrintState();
     return r[address/4];
-    //return this.cpu.r[address/4];
 }
+
+System.prototype.WriteRandomThingsTo4RandomRegisters = function()
+{
+    var r = new Uint32Array(this.heap);
+    for(var index=0; index<4; ++index)
+    {
+        var register = Math.round(Math.random() * 32);
+        var value = Math.round(Math.random() * 128*1024);
+        message.Debug("To register R" + register + " was written " + utils.ToHex(value));
+        r[register] = value;
+    }
+}
+
 
 System.prototype.WriteHeap32 = function(address, value)
 {
     var r = new Uint32Array(this.heap);
-    message.Debug("Writing heap addr: " + address + " value: " + value);
+    message.Debug("Writing heap addr: " + address + " value: " + utils.ToHex(value));
     r[address/4] = value;
 }
 

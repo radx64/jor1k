@@ -1629,6 +1629,12 @@ function jor1kGUI(parameters)
         message.Send("setHeap", address, value);
    }.bind(this);
 
+   this.AwesomeRandomness = function()
+   {
+        message.Debug("Master has send AwesomeRandomness");
+        message.Send("setAwesomeRandomness");
+   }
+
     message.Register("Stop", function(){message.Debug("Received stop signal"); this.stop = true}.bind(this));
     message.Register("GetIPS", this.ShowIPS.bind(this));
     message.Register("execute", this.Execute.bind(this));
