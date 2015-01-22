@@ -10010,8 +10010,6 @@ System.prototype.Init = function(system) {
     var ramoffset = 0x100000;
     this.heap = new ArrayBuffer(this.memorysize*0x100000);
 
-    this.heapAccessor = new Uint32Array(this.heap, 0, 0x100000);
-
     this.memorysize--; // - the lower 1 MB are used for the cpu cores
     this.ram = new RAM(this.heap, ramoffset);
 
@@ -10093,14 +10091,19 @@ System.prototype.Init = function(system) {
 
 System.prototype.ReadHeap32 = function(address)
 {
+    var r = new Uint32Array(this.heap);
     message.Debug("Reading heap addr: " + address);
-    return this.heapAccessor[address];
+    console.debug(this.fastcpu);
+    this.PrintState();
+    return r[address/4];
+    //return this.cpu.r[address/4];
 }
 
 System.prototype.WriteHeap32 = function(address, value)
 {
+    var r = new Uint32Array(this.heap);
     message.Debug("Writing heap addr: " + address + " value: " + value);
-    this.heapAccessor[address] = value;
+    r[address/4] = value;
 }
 
 
